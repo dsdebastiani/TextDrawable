@@ -17,6 +17,7 @@ public class TextDrawable extends ShapeDrawable {
     private static final float SHADE_FACTOR = 0.9f;
     private final String text;
     private final int color;
+    private final int borderColor;
     private final RectShape shape;
     private final int height;
     private final int width;
@@ -36,6 +37,7 @@ public class TextDrawable extends ShapeDrawable {
         // text and color
         text = builder.toUpperCase ? builder.text.toUpperCase() : builder.text;
         color = builder.color;
+        borderColor = builder.borderColor;
 
         // text paint settings
         fontSize = builder.fontSize;
@@ -51,20 +53,26 @@ public class TextDrawable extends ShapeDrawable {
         // border paint settings
         borderThickness = builder.borderThickness;
         borderPaint = new Paint();
-        borderPaint.setColor(getDarkerShade(color));
+        if (borderColor == Color.TRANSPARENT) {
+            borderPaint.setColor(getDarkerShade(color));
+        } else {
+            borderPaint.setColor(borderColor);
+        }
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(borderThickness);
+        borderPaint.setAntiAlias(true);
 
         // drawable paint color
         Paint paint = getPaint();
         paint.setColor(color);
+        paint.setAntiAlias(true);
 
     }
 
     private int getDarkerShade(int color) {
-        return Color.rgb((int)(SHADE_FACTOR * Color.red(color)),
-                (int)(SHADE_FACTOR * Color.green(color)),
-                (int)(SHADE_FACTOR * Color.blue(color)));
+        return Color.rgb((int) (SHADE_FACTOR * Color.red(color)),
+                (int) (SHADE_FACTOR * Color.green(color)),
+                (int) (SHADE_FACTOR * Color.blue(color)));
     }
 
     @Override
@@ -94,15 +102,13 @@ public class TextDrawable extends ShapeDrawable {
 
     private void drawBorder(Canvas canvas) {
         RectF rect = new RectF(getBounds());
-        rect.inset(borderThickness/2, borderThickness/2);
+        rect.inset(borderThickness / 2, borderThickness / 2);
 
         if (shape instanceof OvalShape) {
             canvas.drawOval(rect, borderPaint);
-        }
-        else if (shape instanceof RoundRectShape) {
+        } else if (shape instanceof RoundRectShape) {
             canvas.drawRoundRect(rect, radius, radius, borderPaint);
-        }
-        else {
+        } else {
             canvas.drawRect(rect, borderPaint);
         }
     }
@@ -142,6 +148,8 @@ public class TextDrawable extends ShapeDrawable {
 
         private int color;
 
+        private int borderColor;
+
         private int borderThickness;
 
         private int width;
@@ -165,6 +173,7 @@ public class TextDrawable extends ShapeDrawable {
         private Builder() {
             text = "";
             color = Color.GRAY;
+            borderColor = Color.TRANSPARENT;
             textColor = Color.WHITE;
             borderThickness = 0;
             width = -1;
@@ -193,6 +202,12 @@ public class TextDrawable extends ShapeDrawable {
 
         public IConfigBuilder withBorder(int thickness) {
             this.borderThickness = thickness;
+            return this;
+        }
+
+        public IConfigBuilder withBorder(int thickness, int color) {
+            this.borderThickness = thickness;
+            this.borderColor = color;
             return this;
         }
 
@@ -280,6 +295,8 @@ public class TextDrawable extends ShapeDrawable {
         public IConfigBuilder textColor(int color);
 
         public IConfigBuilder withBorder(int thickness);
+
+        public IConfigBuilder withBorder(int thickness, int color);
 
         public IConfigBuilder useFont(Typeface font);
 

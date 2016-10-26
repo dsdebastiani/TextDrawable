@@ -30,6 +30,7 @@ public class DataSource {
         mDataSource.add(itemFromType(DrawableProvider.SAMPLE_SIZE));
         mDataSource.add(itemFromType(DrawableProvider.SAMPLE_ANIMATION));
         mDataSource.add(itemFromType(DrawableProvider.SAMPLE_MISC));
+        mDataSource.add(itemFromType(DrawableProvider.SAMPLE_ROUND_BORDER_COLOR));
     }
 
     public int getCount() {
@@ -90,8 +91,12 @@ public class DataSource {
                 break;
             case DrawableProvider.SAMPLE_MISC:
                 label = "Miscellaneous";
-                drawable =  mProvider.getRect("\u03c0");
+                drawable = mProvider.getRect("\u03c0");
                 type = NO_NAVIGATION;
+                break;
+            case DrawableProvider.SAMPLE_ROUND_BORDER_COLOR:
+                label = "Round with Border Color";
+                drawable = mProvider.getRoundWithBorderColor("F");
                 break;
         }
         return new DataItem(label, drawable, type);

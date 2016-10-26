@@ -1,29 +1,32 @@
 ###TextDrawable 
 This light-weight library provides images with letter/text like the Gmail app. It extends the `Drawable` class thus can be used with existing/custom/network `ImageView` classes. Also included is a [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface) for creating drawables and a customizable `ColorGenerator`.
+Forked from: [amulyakhare/TextDrawable](https://github.com/amulyakhare/TextDrawable)
 
-<p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen1-material.png" width="350"/>
-<img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen2-material.png" width="350"/>
+<p align="center"><img src ="https://github.com/dsdebastiani/TextDrawable/blob/master/screens/screen1-material.png" width="350"/>
+<img src ="https://github.com/dsdebastiani/TextDrawable/blob/master/screens/screen2-material.png" width="350"/>
 </p>
 
 ###How to use
+
+[![Release](https://jitpack.io/v/dsdebastiani/TextDrawable.svg)](https://jitpack.io/#dsdebastiani/TextDrawable)
 
 #### Import with Gradle:
 
 ```groovy
 repositories{
     maven {
-        url 'http://dl.bintray.com/amulyakhare/maven'
+        url 'https://jitpack.io'
     }
 }
 
 dependencies {
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.github.dsdebastiani:TextDrawable:[LAST_RELEASE]'
 }
 ```
 
 ####1. Create simple tile:
 
-<p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen3.png"/>
+<p align="center"><img src ="https://github.com/dsdebastiani/TextDrawable/blob/master/screens/screen3.png"/>
 </p>
 
 ```xml
@@ -42,7 +45,7 @@ image.setImageDrawable(drawable);
 
 ####2. Create rounded corner or circular tiles:
 
-<p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen6.png"/>
+<p align="center"><img src ="https://github.com/dsdebastiani/TextDrawable/blob/master/screens/screen6.png"/>
 </p>
 
 ```java
@@ -55,13 +58,21 @@ TextDrawable drawable2 = TextDrawable.builder()
 
 ####3. Add border:
 
-<p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen5.png"/>
+<p align="center"><img src ="https://github.com/dsdebastiani/TextDrawable/blob/master/screens/screen5.png"/>
 </p>
 
 ```java
 TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
                     .withBorder(4) /* thickness in px */
+                .endConfig()
+                .buildRoundRect("A", Color.RED, 10);
+```
+With color...
+```java
+TextDrawable drawable = TextDrawable.builder()
+                .beginConfig()
+                    .withBorder(4, Color.BLACK) /* thickness in px */
                 .endConfig()
                 .buildRoundRect("A", Color.RED, 10);
 ```
@@ -130,4 +141,4 @@ image.setImageDrawable(drawable);
 
 3. Use multiple letters or `unicode` characters to create interesting tiles. 
 
-<p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen7.png" width="350"/></p>
+<p align="center"><img src ="https://github.com/dsdebastiani/TextDrawable/blob/master/screens/screen7.png" width="350"/></p>

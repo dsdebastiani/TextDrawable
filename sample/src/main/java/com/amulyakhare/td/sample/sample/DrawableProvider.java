@@ -30,6 +30,7 @@ public class DrawableProvider {
     public static final int SAMPLE_SIZE = 9;
     public static final int SAMPLE_ANIMATION = 10;
     public static final int SAMPLE_MISC = 11;
+    public static final int SAMPLE_ROUND_BORDER_COLOR = 12;
 
     private final ColorGenerator mGenerator;
     private final Context mContext;
@@ -66,6 +67,14 @@ public class DrawableProvider {
         return TextDrawable.builder()
                 .beginConfig()
                     .withBorder(toPx(2))
+                .endConfig()
+                .buildRound(text, mGenerator.getColor(text));
+    }
+
+    public TextDrawable getRoundWithBorderColor(String text) {
+        return TextDrawable.builder()
+                .beginConfig()
+                    .withBorder(toPx(2), Color.BLACK)
                 .endConfig()
                 .buildRound(text, mGenerator.getColor(text));
     }

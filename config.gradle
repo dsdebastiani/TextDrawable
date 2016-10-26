@@ -1,0 +1,6 @@
+ext {
+    compileSdkVer = 25
+    buildToolsVer = '25.0.0'
+    minSdkVer = 10
+    targetSdkVer = compileSdkVer
+}
